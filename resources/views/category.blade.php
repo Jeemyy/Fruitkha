@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
 @section('content')
 <div class="product-section mt-150 mb-150">
 		<div class="container">
@@ -47,4 +46,5 @@
 				</div>
 			</div>
 		</div>
-	</div>@endsection
+	</div>
+@endsection

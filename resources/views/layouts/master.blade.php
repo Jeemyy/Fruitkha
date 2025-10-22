@@ -30,6 +30,7 @@
 	<link rel="stylesheet" href="{{asset('assets/css/main.css')}}">
 	<!-- responsive -->
 	<link rel="stylesheet" href="{{asset('assets/css/responsive.css')}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 <body>
@@ -59,25 +60,24 @@
 						<!-- menu start -->
 						<nav class="main-menu">
 							<ul>
-								<li><a href="/">Home</a></li>
-								<li><a href="/product">Product</a></li>
-								<li><a href="/category">Category</a></li>
-
-								<li><a href="{{route('about')}}">About</a></li>
-                                <li><a href="{{route('add.product')}}">Add Product</a></li>
+								<li><a href="/">{{ __('str.navbar.home') }}</a></li>
+								<li><a href="/product">{{ __('str.navbar.product') }}</a></li>
+								<li><a href="/category">{{ __('str.navbar.category') }}</a></li>
+								<li><a href="{{route('about')}}">{{ __('str.navbar.about') }}</a></li>
+                                <li><a href="{{route('add.product')}}">{{ __('str.navbar.addproduct') }}</a></li>
 
 
 
                                                     @guest
                             @if (Route::has('login'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
+                                    <a class="nav-link" href="{{ route('login') }}">{{ __('str.navbar.login') }}</a>
                                 </li>
                             @endif
 
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">Register</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('str.navbar.register') }}</a>
                                 </li>
                             @endif
                         @else
@@ -97,10 +97,22 @@
                                 </li>
                             </li>
                         @endguest
+                                <li>
+                                    <form id="languageForm" action="{{route('goBack','en')}}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-primary">English</button>
+                                    </form>
+                                </li>
+                                <li>
+                                    <form id="languageForm" action="{{route('goBack', 'ar')}}" method="POST">
+                                        @csrf
+                                        <button type="submit" class="btn btn-warning">عربي</button>
+                                    </form>
+                                </li>
 
 								<li>
 									<div class="header-icons">
-										<a class="shopping-cart" href="cart.html"><i class="fas fa-shopping-cart"></i></a>
+										<a class="shopping-cart" href="{{route('cart')}}"><i class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i class="fas fa-search"></i></a>
 									</div>
 								</li>
@@ -147,7 +159,7 @@
 						<div class="hero-text">
 							<div class="hero-text-tablecell">
 								<p class="subtitle">Fresh & Organic</p>
-								<h1>Delicious Seasonal Fruits</h1>
+								<h1>{{ __('str.title') }}</h1>
 								<div class="hero-btns">
 									<a href="shop.html" class="boxed-btn">Fruit Collection</a>
 									<a href="{{route('add.review')}}" class="bordered-btn">Add Review</a>
@@ -203,7 +215,9 @@
 
 
 
+
     @yield('content')
+
 
 
 

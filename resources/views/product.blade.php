@@ -17,19 +17,21 @@
 				<div class="col-lg-4 col-md-6 text-center">
 					<div class="single-product-item">
 						<div class="product-image">
-							<a href="single-product.html"><img src="{{url($item->imagepath)}}" style="min-height: 250px; max-height: 250px !important" alt=""></a>
+							<a href="{{route('product.single', $item->id)}}"><img src="{{url($item->imagepath)}}" style="min-height: 250px; max-height: 250px !important" alt=""></a>
 						</div>
 						<h3>{{$item->name}}</h3>
-						<p class="produ;ct-price"><span>{{$item->quantity}}</span> {{$item->price}}$ </p>
+						<p class="product-price"><span>{{$item->quantity}}</span> {{$item->price}}$ </p>
                         <div>
-                            <a href="#" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                            <a href="{{route('remove.product',$item->id)}}" class="btn btn-danger" style="padding:1rem; border-radius: 50px">
+                            <a href="{{route('cart.add', $item->id)}}" class="cart-btn">
+                                <i class="fas fa-shopping-cart"></i> Add to Cart</a>
+
+
+                            <a href="{{route('product.remove',$item->id)}}" class="btn btn-danger" style="padding:1rem; border-radius: 50px">
                                 <i class="fas fa-trash"></i>
                                 Remove Product</a>
-                            <a href="{{route('edit.product' , $item->id)}}}" class="btn btn-primary" style="padding:1rem; border-radius: 50px">
+                            <a href="{{route('product.edit' , $item->id)}}" class="btn btn-primary" style="padding:1rem; border-radius: 50px">
                                 <i class="fas fa-edit"></i>
                                 Edit Product</a>
-
                         </div>
 					</div>
 				</div>

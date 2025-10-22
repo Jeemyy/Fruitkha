@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\ProductPhoto;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,7 +16,7 @@ class ProductController extends Controller
     }
     public function store(Request $request){
             $request->validate([
-                'name' => ['required' ,'unique:products', 'max:50'],
+                'name' => ['required' , 'max:50'],
                 'price' => 'required',
                 'quantity' => 'required',
                 'category_id' => 'required',
@@ -73,11 +74,31 @@ class ProductController extends Controller
     }
 
     public function searchProduct(Request $request){
-        $product = Product::where('name','like','%' . $request->searchkey.'%')->get();
+        $product = Product::where('name','like','%' . $request->searchkey.'%')->paginate(6);
         // dd($product);
 
         return view('/product',['product' => $product]);
     }
 
+    public function productTable(){
+        $products = Product::all();
+        return view('products.producttable',['products' => $products]);
+    }
+
+
+    // single Product
+    public function singleProduct($productid){
+        $product = Product::with('Category','productImage')->find($productid);
+        $relatedProduct = Product::where('category_id', $product->category_id)
+        ->where('id', '!=', $productid)
+        ->inRandomOrder()
+        ->limit(3)
+        ->get();
+
+        return view('products.singleProduct',[
+            'product' => $product,
+            'relatedProduct' => $relatedProduct,
+        ]);
+    }
 }
 

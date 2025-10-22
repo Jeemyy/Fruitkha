@@ -6,19 +6,25 @@ use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Review;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 
 class FirstController extends Controller
 {
     function MainPage(){
         $result  = Category::all(); // select * from categories;
         $reviews = Review::all();
+
+        session()->put('username', 'ahmed gamal');
+        session()->forget('username');
+        // dd(session('username'));
         return view('welcome', ['categories' => $result, 'reviews' => $reviews]);
     }
 
     function ProductPage($catid = null){
         if($catid){
         // $data = DB::table('product')->where('category_id', $catid)->get(); //=> Query Builder
-        $data = Product::where('category_id', $catid)->get();
+        $data = Product::where('category_id', $catid)->paginate(6);
         return view('product', ['product' => $data]);
         }else{
             // abort(403,'This page without an ID for page');  //=> To print Error Massage
@@ -57,5 +63,10 @@ class FirstController extends Controller
 
         $reviews = Review::all();
         return view('about',['reviews' => $reviews]);
+    }
+    public function getCart(){
+        $users = auth()->user()->id;
+        $carts = Cart::with('Product')->where('user_id' , $users)->get();
+        return view('cart', ['carts' => $carts]);
     }
 }

@@ -23,7 +23,7 @@
                             @csrf
 							<p>
                                 <input type="hidden" name="id" id="id" style="width: 100%" value="{{$product->id}}">
-								<input type="text"  placeholder="Name" name="name" id="name" style="width: 100%" value="{{old('name')}}">
+								<input type="text"  placeholder="Name" name="name" id="name" style="width: 100%" value="{{$product->name}}">
                                 <span class="text-danger">
                                     @error('name')
                                         {{$message}}
@@ -31,14 +31,14 @@
                                 </span>
 							</p>
 							<p style="display: flex;">
-								<input type="number"  placeholder="Price" name="price" id="price" style="width: 50%;" class="mr-3" value="{{old('price')}}">
-                                                                <span class="text-danger">
+								<input type="number"  placeholder="Price" name="price" id="price" style="width: 50%;" class="mr-3" value="{{$product->price}}">
+                                <span class="text-danger">
                                     @error('price')
                                         {{$message}}
                                     @enderror
                                 </span>
 
-								<input type="number"  placeholder="Quantity" name="quantity" id="quantity" style="width: 50%;" value='{{old('quantity')}}'>
+								<input type="number"  placeholder="Quantity" name="quantity" id="quantity" style="width: 50%;" value='{{$product->quantity}}'>
                                                                 <span class="text-danger">
                                     @error('quantity')
                                         {{$message}}
@@ -46,7 +46,7 @@
                                 </span>
 
 							</p>
-							<p><textarea  name="description" id="description" cols="30" rows="10" placeholder="Description">{{old('description')}}</textarea>
+							<p><textarea  name="description" id="description" cols="30" rows="10" placeholder="Description">{{$product->description}}</textarea>
                                                             <span class="text-danger">
                                     @error('description')
                                         {{$message}}
@@ -57,7 +57,7 @@
                                 <select name="category_id" id="category_id" class="form-control">
                                     @foreach ($allcategories as $item)
                                     @if ($item->id == $product->category_id)
-                                        <option value="{{$item->id}}" selected>{{$item->name}}</option>
+                                        <option value="{{$item->id}}">{{$item->name}}</option>
                                     @else
                                         <option value="{{$item->id}}">{{$item->name}}</option>
                                     @endif
@@ -71,7 +71,7 @@
                             </p>
                             <p>
                                 <img src="{{asset($product->imagepath)}}" alt="{{$product->name}}" style="min-height: 250px; max-height: 250px !important">
-                                <input type="file" name="photo" id="photo" class="form-control">
+                                <input type="file" name="photo" id="photo" class="form-control" value="{{$product->imagepath}}">
                             </p>
 							<input type="hidden" name="token" value="FsWga4&amp;@f6aw">
 							<p><input type="submit" value="Submit"></p>

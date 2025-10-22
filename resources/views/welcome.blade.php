@@ -2,7 +2,9 @@
 @section('title','Welcome Page')
 @section('content')
 <div class="product-section mt-150 mb-150">
-
+    {{-- {{ session('username') ? 'the session for user name '.session('username') : 'not define the any session for any user'}} --}}
+    <br>
+    {{-- {{ session('mail') ? 'the session name for '.session('user').'have an email is '.session('mail'): 'not define'}}  --}}
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8 offset-lg-2 text-center">
